@@ -1,0 +1,500 @@
+{
+  "compatibilityLevel": 1606,
+  "model": {
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"DataFolder\", \"Fact_Admissions\", \"Dim_Date\"]"
+      },
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
+    "culture": "en-US",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "discourageImplicitMeasures": true,
+    "expressions": [
+      {
+        "name": "DataFolder",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Text"
+          }
+        ],
+        "expression": "\"C:\\Users\\HP\\Desktop\\Power BI\\healthcare-analytics-powerbi\\data\\processed\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
+        "kind": "m",
+        "lineageTag": "9bbacfb2-6573-4f33-a986-177d35a47577"
+      }
+    ],
+    "relationships": [
+      {
+        "name": "a7a2815a-631e-4ffa-b528-e64df3d26e01",
+        "fromColumn": "Admission Date",
+        "fromTable": "Fact_Admissions",
+        "toColumn": "Date",
+        "toTable": "Dim_Date"
+      },
+      {
+        "name": "440c5b25-63e8-43d2-9dd1-788be944161a",
+        "fromColumn": "Discharge Date",
+        "fromTable": "Fact_Admissions",
+        "isActive": false,
+        "toColumn": "Date",
+        "toTable": "Dim_Date"
+      }
+    ],
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "Fact_Admissions",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Admission ID",
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "816cb9fb-953d-44eb-ad35-506c091867a3",
+            "sourceColumn": "Admission ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Patient Name",
+            "dataType": "string",
+            "lineageTag": "37620ffc-223c-490d-8fb0-94a764503565",
+            "sourceColumn": "Patient Name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Age",
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "578f7455-e02f-428f-88a6-a559872f4051",
+            "sourceColumn": "Age",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Age Group",
+            "dataType": "string",
+            "lineageTag": "6f8e8500-fb42-4c2a-acd2-40efe70dd1c3",
+            "sortByColumn": "Age Group Order",
+            "sourceColumn": "Age Group",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Age Group Order",
+            "dataType": "int64",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "6fbdc8d0-7b8c-48a6-a63f-750ce2627213",
+            "sourceColumn": "Age Group Order",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Gender",
+            "dataType": "string",
+            "lineageTag": "e7ba7f01-0166-4586-8f77-b7534932e3d8",
+            "sourceColumn": "Gender",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Blood Type",
+            "dataType": "string",
+            "lineageTag": "e929b762-0eb2-4d48-aebf-eef2f73556e0",
+            "sourceColumn": "Blood Type",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Medical Condition",
+            "dataType": "string",
+            "lineageTag": "05ad7c5e-3b31-4a37-889c-82410a779acb",
+            "sourceColumn": "Medical Condition",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Admission Date",
+            "annotations": [
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "yyyy-mm-dd",
+            "lineageTag": "4e06c69c-67d1-4a56-ae06-dac054a76ea9",
+            "sourceColumn": "Admission Date",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Discharge Date",
+            "annotations": [
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "yyyy-mm-dd",
+            "lineageTag": "7c4a6f84-c4d3-4b9e-b0f0-982af2599566",
+            "sourceColumn": "Discharge Date",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Length of Stay",
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "291d4c21-27a5-436f-a7e1-352275aade06",
+            "sourceColumn": "Length of Stay",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Admission Type",
+            "dataType": "string",
+            "lineageTag": "bd21d317-f44c-4546-b129-7c504b11f757",
+            "sourceColumn": "Admission Type",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Doctor",
+            "dataType": "string",
+            "lineageTag": "60fc3e6e-8d35-4df4-b104-5f720fecebba",
+            "sourceColumn": "Doctor",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Hospital",
+            "dataType": "string",
+            "lineageTag": "eb3d733c-4ae2-4626-a2b7-a4411844f9d6",
+            "sourceColumn": "Hospital",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Insurance Provider",
+            "dataType": "string",
+            "lineageTag": "7cd1be9c-3cbd-47ab-8f41-ac63c69ce0b5",
+            "sourceColumn": "Insurance Provider",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Billing Amount",
+            "dataType": "double",
+            "formatString": "$#,0.00",
+            "lineageTag": "b3b7b717-5ed2-4af8-9123-35c51a29f609",
+            "sourceColumn": "Billing Amount",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Room Number",
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "a680842f-a697-4295-beb6-7309bafdb65b",
+            "sourceColumn": "Room Number",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Medication",
+            "dataType": "string",
+            "lineageTag": "9d44eeb9-6f46-435e-a50d-2d65aea422e6",
+            "sourceColumn": "Medication",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Test Results",
+            "dataType": "string",
+            "lineageTag": "51b67584-de49-4624-a6ee-91fa084e25ef",
+            "sourceColumn": "Test Results",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "bb81d07d-c981-4553-9948-f51675b8ad6c",
+        "measures": [
+          {
+            "name": "Total Admissions",
+            "description": "Number of patient admissions in the current filter context.",
+            "displayFolder": "1 Volume",
+            "expression": "COUNTROWS ( Fact_Admissions )",
+            "formatString": "#,0",
+            "lineageTag": "08bace40-f9e3-4177-b315-ee671c405b47"
+          },
+          {
+            "name": "Total Discharges",
+            "description": "Admissions counted by discharge date (uses the inactive relationship).",
+            "displayFolder": "1 Volume",
+            "expression": "CALCULATE ( [Total Admissions], USERELATIONSHIP ( Fact_Admissions[Discharge Date], Dim_Date[Date] ) )",
+            "formatString": "#,0",
+            "lineageTag": "0aacb052-cd9a-4521-9f68-da3c61efc672"
+          },
+          {
+            "name": "Total Patient Days",
+            "description": "Sum of length of stay in days.",
+            "displayFolder": "1 Volume",
+            "expression": "SUM ( Fact_Admissions[Length of Stay] )",
+            "formatString": "#,0",
+            "lineageTag": "ac0f1300-494f-4819-bb1f-0888dbeffb1b"
+          },
+          {
+            "name": "Admissions % of Total",
+            "description": "Share of admissions within the currently selected slicers.",
+            "displayFolder": "1 Volume",
+            "expression": "DIVIDE ( [Total Admissions], CALCULATE ( [Total Admissions], ALLSELECTED () ) )",
+            "formatString": "0.0%",
+            "lineageTag": "87473b33-03d9-4280-b99e-cc7e51a30e76"
+          },
+          {
+            "name": "Total Billing",
+            "description": "Total billed amount.",
+            "displayFolder": "2 Billing",
+            "expression": "SUM ( Fact_Admissions[Billing Amount] )",
+            "formatString": "$#,0",
+            "lineageTag": "ea32a957-7bfc-4b02-81d5-8bd79dbd6a5b"
+          },
+          {
+            "name": "Avg Billing per Admission",
+            "description": "Average bill per admission.",
+            "displayFolder": "2 Billing",
+            "expression": "DIVIDE ( [Total Billing], [Total Admissions] )",
+            "formatString": "$#,0",
+            "lineageTag": "473871d8-2794-4621-a304-5c08ddbbc803"
+          },
+          {
+            "name": "Avg Billing per Day",
+            "description": "Average billing per patient day.",
+            "displayFolder": "2 Billing",
+            "expression": "DIVIDE ( [Total Billing], [Total Patient Days] )",
+            "formatString": "$#,0",
+            "lineageTag": "7f2cb5c5-ead4-4314-a312-b37414fd69c3"
+          },
+          {
+            "name": "Avg Length of Stay",
+            "description": "Average length of stay in days.",
+            "displayFolder": "3 Clinical",
+            "expression": "AVERAGE ( Fact_Admissions[Length of Stay] )",
+            "formatString": "0.0",
+            "lineageTag": "7b306609-10f9-4b67-a844-9f9739f97389"
+          },
+          {
+            "name": "Avg Patient Age",
+            "description": "Average patient age in years.",
+            "displayFolder": "3 Clinical",
+            "expression": "AVERAGE ( Fact_Admissions[Age] )",
+            "formatString": "0.0",
+            "lineageTag": "55ea95ce-c046-40c4-babc-5d6ce01ed41a"
+          },
+          {
+            "name": "Abnormal Results",
+            "description": "Admissions with an abnormal test result.",
+            "displayFolder": "3 Clinical",
+            "expression": "CALCULATE ( [Total Admissions], Fact_Admissions[Test Results] = \"Abnormal\" )",
+            "formatString": "#,0",
+            "lineageTag": "cd0acaca-72a3-45c5-9074-ee1e49cbfc02"
+          },
+          {
+            "name": "Abnormal Result Rate",
+            "description": "Share of admissions with an abnormal test result.",
+            "displayFolder": "3 Clinical",
+            "expression": "DIVIDE ( [Abnormal Results], [Total Admissions] )",
+            "formatString": "0.0%",
+            "lineageTag": "a1acde49-4545-4be7-ba21-bf484673d373"
+          },
+          {
+            "name": "Emergency Admissions",
+            "description": "Admissions of type Emergency.",
+            "displayFolder": "3 Clinical",
+            "expression": "CALCULATE ( [Total Admissions], Fact_Admissions[Admission Type] = \"Emergency\" )",
+            "formatString": "#,0",
+            "lineageTag": "130c0e25-6cdf-4651-aa9c-066c5c7e17f6"
+          },
+          {
+            "name": "Emergency Admission %",
+            "description": "Share of admissions that are emergencies.",
+            "displayFolder": "3 Clinical",
+            "expression": "DIVIDE ( [Emergency Admissions], [Total Admissions] )",
+            "formatString": "0.0%",
+            "lineageTag": "5e263d01-ea25-458f-84f8-6f574916f6f5"
+          },
+          {
+            "name": "Admissions PY",
+            "description": "Admissions in the same period last year. Note: 2019 and 2024 are partial years.",
+            "displayFolder": "4 Time Intelligence",
+            "expression": "CALCULATE ( [Total Admissions], SAMEPERIODLASTYEAR ( Dim_Date[Date] ) )",
+            "formatString": "#,0",
+            "lineageTag": "5e1e5f79-99d0-40f8-bf0b-4671dda1d793"
+          },
+          {
+            "name": "Admissions YoY %",
+            "description": "Year-over-year change in admissions. Best read at month level.",
+            "displayFolder": "4 Time Intelligence",
+            "expression": "DIVIDE ( [Total Admissions] - [Admissions PY], [Admissions PY] )",
+            "formatString": "0.0%;-0.0%;0.0%",
+            "lineageTag": "fd9b0fa6-3ff5-490d-a280-0daed30bf32c"
+          },
+          {
+            "name": "Billing PY",
+            "description": "Billing in the same period last year.",
+            "displayFolder": "4 Time Intelligence",
+            "expression": "CALCULATE ( [Total Billing], SAMEPERIODLASTYEAR ( Dim_Date[Date] ) )",
+            "formatString": "$#,0",
+            "lineageTag": "f5a8629b-31f5-4c1f-a361-6fffaf5b37c3"
+          },
+          {
+            "name": "Billing YoY %",
+            "description": "Year-over-year change in billing. Best read at month level.",
+            "displayFolder": "4 Time Intelligence",
+            "expression": "DIVIDE ( [Total Billing] - [Billing PY], [Billing PY] )",
+            "formatString": "0.0%;-0.0%;0.0%",
+            "lineageTag": "51e227ec-57e0-468c-bb8f-6005423f39bb"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Fact_Admissions",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"\\fact_admissions.csv\"), [Delimiter=\",\", Columns=19, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"Admission ID\", Int64.Type}, {\"Patient Name\", type text}, {\"Age\", Int64.Type}, {\"Age Group\", type text}, {\"Age Group Order\", Int64.Type}, {\"Gender\", type text}, {\"Blood Type\", type text}, {\"Medical Condition\", type text}, {\"Admission Date\", type date}, {\"Discharge Date\", type date}, {\"Length of Stay\", Int64.Type}, {\"Admission Type\", type text}, {\"Doctor\", type text}, {\"Hospital\", type text}, {\"Insurance Provider\", type text}, {\"Billing Amount\", type number}, {\"Room Number\", Int64.Type}, {\"Medication\", type text}, {\"Test Results\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Dim_Date",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Date",
+            "annotations": [
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "yyyy-mm-dd",
+            "isKey": true,
+            "lineageTag": "f953c26d-f27a-4206-831c-f8c86c7df655",
+            "sourceColumn": "Date",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "6291aff3-e03c-4e22-b250-fc252dc68361",
+            "sourceColumn": "Year",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Quarter",
+            "dataType": "string",
+            "lineageTag": "cf8723ba-8151-4aa1-9438-035fb9ba2212",
+            "sourceColumn": "Quarter",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Month Number",
+            "dataType": "int64",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "2843be4b-cb87-4adc-9f13-6330b45998b0",
+            "sourceColumn": "Month Number",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Month Name",
+            "dataType": "string",
+            "lineageTag": "05ab2de3-d2aa-49b5-b8c0-171ed7a472ea",
+            "sortByColumn": "Month Number",
+            "sourceColumn": "Month Name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Month Year",
+            "dataType": "string",
+            "lineageTag": "0ef6512f-a4e9-44ed-8520-f1ee6ec0698b",
+            "sortByColumn": "Month Year Sort",
+            "sourceColumn": "Month Year",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Month Year Sort",
+            "dataType": "int64",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "09bf1c91-d2b8-4928-a65e-552c1ddc9cba",
+            "sourceColumn": "Month Year Sort",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Day Name",
+            "dataType": "string",
+            "lineageTag": "48fda5af-1cec-43f6-af50-1027210339ec",
+            "sortByColumn": "Day of Week Number",
+            "sourceColumn": "Day Name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Day of Week Number",
+            "dataType": "int64",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "c6116620-d9eb-4fe6-b326-9a7a886fdec7",
+            "sourceColumn": "Day of Week Number",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Is Weekend",
+            "dataType": "string",
+            "lineageTag": "609d9f12-4f0f-41d5-9b7a-01e28bff0fe4",
+            "sourceColumn": "Is Weekend",
+            "summarizeBy": "none"
+          }
+        ],
+        "dataCategory": "Time",
+        "lineageTag": "2f88637d-7774-4a16-9f6c-3731450bfb6f",
+        "partitions": [
+          {
+            "name": "Dim_Date",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"\\dim_date.csv\"), [Delimiter=\",\", Columns=10, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"Date\", type date}, {\"Year\", Int64.Type}, {\"Quarter\", type text}, {\"Month Number\", Int64.Type}, {\"Month Name\", type text}, {\"Month Year\", type text}, {\"Month Year Sort\", Int64.Type}, {\"Day Name\", type text}, {\"Day of Week Number\", Int64.Type}, {\"Is Weekend\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

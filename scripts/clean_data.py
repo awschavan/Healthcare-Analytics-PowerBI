@@ -1,0 +1,128 @@
+"""
+Healthcare dataset cleaning + modelling prep
+--------------------------------------------
+Input : data/raw/healthcare_dataset.csv
+Output: data/processed/fact_admissions.csv
+        data/processed/dim_date.csv
+        docs/data_quality_log.md
+
+Run   : python scripts/clean_data.py
+Needs : pandas  (pip install pandas)
+"""
+import re
+from pathlib import Path
+
+import pandas as pd
+
+ROOT = Path(__file__).resolve().parents[1]
+RAW = ROOT / "data" / "raw" / "healthcare_dataset.csv"
+OUT = ROOT / "data" / "processed"
+DOCS = ROOT / "docs"
+OUT.mkdir(parents=True, exist_ok=True)
+DOCS.mkdir(parents=True, exist_ok=True)
+
+log = []  # (check, rows affected, action)
+
+df = pd.read_csv(RAW)
+n_raw = len(df)
+log.append(("Raw rows loaded", n_raw, "-"))
+
+df.columns = [c.strip() for c in df.columns]
+
+# 1. Names: random casing, honorifics (Mr./Mrs./Ms./Dr.) and suffixes (MD, DDS, ...)
+PREFIX = re.compile(r"^(mr|mrs|ms|miss|dr)\.?\s+", re.I)
+SUFFIX = re.compile(r"\s+(md|dds|dvm|phd|jr\.?|sr\.?|ii|iii|iv)\.?$", re.I)
+
+
+def clean_person(s: str) -> str:
+    s = re.sub(r"\s+", " ", str(s)).strip()
+    s = PREFIX.sub("", s)
+    for _ in range(2):  # a few names carry two suffixes
+        s = SUFFIX.sub("", s)
+    return s.title()
+
+
+for col in ["Name", "Doctor"]:
+    before = df[col].copy()
+    df[col] = df[col].map(clean_person)
+    log.append((f"'{col}' casing / titles / suffixes", int((before != df[col]).sum()),
+                "Title-cased; removed Mr./Mrs./Ms./Dr. and MD/DDS/DVM/PhD/Jr. etc."))
+
+
+# 2. Hospital: stray commas and dangling 'and' (e.g. 'and Garcia Morris Cunningham,')
+def clean_hospital(s: str) -> str:
+    s = str(s).replace(",", " ")
+    s = re.sub(r"\s+", " ", s).strip()
+    s = re.sub(r"^(and)\s+", "", s, flags=re.I)
+    s = re.sub(r"\s+(and)$", "", s, flags=re.I)
+    return s.strip()
+
+
+before = df["Hospital"].copy()
+df["Hospital"] = df["Hospital"].map(clean_hospital)
+log.append(("'Hospital' stray commas / dangling 'and'", int((before != df["Hospital"]).sum()),
+            "Removed commas and leading/trailing 'and'"))
+
+# 3. Dates
+df["Date of Admission"] = pd.to_datetime(df["Date of Admission"])
+df["Discharge Date"] = pd.to_datetime(df["Discharge Date"])
+bad_dates = int((df["Discharge Date"] < df["Date of Admission"]).sum())
+log.append(("Discharge before admission", bad_dates, "None found" if bad_dates == 0 else "Removed"))
+df = df[df["Discharge Date"] >= df["Date of Admission"]]
+
+# 4. Exact duplicate records
+dups = int(df.duplicated().sum())
+df = df.drop_duplicates()
+log.append(("Exact duplicate rows", dups, "Removed (kept first occurrence)"))
+
+# 5. Invalid (negative) billing amounts
+neg = int((df["Billing Amount"] < 0).sum())
+df = df[df["Billing Amount"] >= 0]
+log.append(("Negative billing amounts", neg, "Removed - a bill cannot be negative; likely data-entry errors"))
+
+# 6. Derived columns
+df["Length of Stay"] = (df["Discharge Date"] - df["Date of Admission"]).dt.days
+df["Billing Amount"] = df["Billing Amount"].round(2)
+bins = [0, 17, 34, 49, 64, 120]
+labels = ["0-17", "18-34", "35-49", "50-64", "65+"]
+df["Age Group"] = pd.cut(df["Age"], bins=bins, labels=labels).astype(str)
+df["Age Group Order"] = pd.cut(df["Age"], bins=bins, labels=range(1, 6)).astype(int)
+
+df = df.sort_values(["Date of Admission", "Name"]).reset_index(drop=True)
+df.insert(0, "Admission ID", range(1, len(df) + 1))
+
+fact = df.rename(columns={
+    "Name": "Patient Name",
+    "Date of Admission": "Admission Date",
+}).loc[:, [
+    "Admission ID", "Patient Name", "Age", "Age Group", "Age Group Order", "Gender", "Blood Type",
+    "Medical Condition", "Admission Date", "Discharge Date", "Length of Stay", "Admission Type",
+    "Doctor", "Hospital", "Insurance Provider", "Billing Amount", "Room Number",
+    "Medication", "Test Results",
+]]
+fact.to_csv(OUT / "fact_admissions.csv", index=False, date_format="%Y-%m-%d")
+log.append(("Clean rows written to fact_admissions.csv", len(fact), f"{n_raw - len(fact)} rows removed in total"))
+
+# 7. Date dimension (covers admission AND discharge dates)
+start = fact["Admission Date"].min().replace(day=1)
+end = fact["Discharge Date"].max() + pd.offsets.MonthEnd(0)
+d = pd.DataFrame({"Date": pd.date_range(start, end, freq="D")})
+d["Year"] = d["Date"].dt.year
+d["Quarter"] = "Q" + d["Date"].dt.quarter.astype(str)
+d["Month Number"] = d["Date"].dt.month
+d["Month Name"] = d["Date"].dt.strftime("%b")
+d["Month Year"] = d["Date"].dt.strftime("%b %Y")
+d["Month Year Sort"] = d["Date"].dt.year * 100 + d["Date"].dt.month
+d["Day Name"] = d["Date"].dt.strftime("%a")
+d["Day of Week Number"] = d["Date"].dt.dayofweek + 1
+d["Is Weekend"] = d["Day of Week Number"].isin([6, 7]).map({True: "Weekend", False: "Weekday"})
+d.to_csv(OUT / "dim_date.csv", index=False, date_format="%Y-%m-%d")
+log.append(("dim_date.csv generated", len(d), f"{start:%Y-%m-%d} to {end:%Y-%m-%d}"))
+
+# 8. Data-quality log for the repo
+lines = ["# Data Quality Log", "",
+         "Generated by `scripts/clean_data.py`.", "",
+         "| Check | Rows affected | Action |", "|---|---:|---|"]
+lines += [f"| {a} | {b:,} | {c} |" for a, b, c in log]
+(DOCS / "data_quality_log.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+print("\n".join(lines))

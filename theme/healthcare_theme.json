@@ -1,0 +1,18 @@
+{
+  "name": "Healthcare Teal & Navy",
+  "dataColors": ["#0B3C5D", "#1D9A8E", "#F2A541", "#E4572E", "#6C8EAD", "#7BC8A4", "#9B5DE5", "#B8C4CE"],
+  "background": "#FFFFFF",
+  "foreground": "#243B53",
+  "tableAccent": "#1D9A8E",
+  "good": "#1D9A8E",
+  "neutral": "#F2A541",
+  "bad": "#E4572E",
+  "maximum": "#0B3C5D",
+  "center": "#F2A541",
+  "minimum": "#B8C4CE",
+  "textClasses": {
+    "title": {"fontFace": "Segoe UI Semibold", "fontSize": 12, "color": "#0B3C5D"},
+    "label": {"fontFace": "Segoe UI", "fontSize": 10, "color": "#243B53"},
+    "callout": {"fontFace": "Segoe UI Semibold", "fontSize": 24, "color": "#0B3C5D"}
+  }
+}
