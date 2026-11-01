@@ -2,7 +2,7 @@
 
 An end-to-end Power BI project analysing **54,860 hospital admissions (May 2019 - May 2024)**: data cleaning in Python, a star-schema semantic model, 17 DAX measures and a 3-page interactive report.
 
-![Executive Overview](images/page1_executive_overview.png)
+![Healthcare Analytics Executive Overview](images/page1_executive_overview.png)
 
 ## Business questions answered
 
