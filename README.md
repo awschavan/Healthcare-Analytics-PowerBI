@@ -98,4 +98,4 @@ Power BI · Power Query (M) · DAX (CALCULATE, USERELATIONSHIP, SAMEPERIODLASTYE
 
 ## Author
 
-**Your Name** · [LinkedIn](https://linkedin.com/in/your-profile) · [GitHub](https://github.com/your-username)
+**Your Name** · [LinkedIn](https://www.linkedin.com/in/swapnil-chavan-7b413124a/) · [GitHub](https://github.com/your-username)
